@@ -2,9 +2,30 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="DayTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="tvBackground">@color/white</item>
+        <item name="lvBackground">@color/near_white</item>
+<!--        删除-->
+        <item name="menu_delete_all">@drawable/ic_delete_all_24</item>
+        <item name="menu_delete">@drawable/ic_baseline_delete_24</item>
+<!--搜索-->
+        <item name="menu_search">@drawable/ic_baseline_search_24</item>
+<!--        设置-->
+        <item name="settingIcon">@drawable/ic_baseline_settings_24</item>
+        <item name="titleColor">@color/black</item>
+        <item name="tvMainColor">@color/black</item>
+        <item name="tvSubColor">@color/grey9</item>
+        <item name="colorControlActivated">@color/black</item>
+        <item name="colorSwitchThumbNormal">@color/black</item>
     </style>
 
 </resources>
