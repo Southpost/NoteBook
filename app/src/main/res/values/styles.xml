@@ -9,16 +9,17 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="tvBackground">@color/white</item>
         <item name="lvBackground">@color/near_white</item>
-<!--        删除-->
+<!--删除-->
         <item name="menu_delete_all">@drawable/ic_delete_all_24</item>
         <item name="menu_delete">@drawable/ic_baseline_delete_24</item>
 <!--搜索-->
         <item name="menu_search">@drawable/ic_baseline_search_24</item>
-<!--        设置-->
+<!--设置-->
         <item name="settingIcon">@drawable/ic_baseline_settings_24</item>
         <item name="titleColor">@color/black</item>
         <item name="tvMainColor">@color/black</item>
         <item name="tvSubColor">@color/grey9</item>
+        <item name="menu_autoSave">@color/p</item>
         <item name="colorControlActivated">@color/black</item>
         <item name="colorSwitchThumbNormal">@color/black</item>
     </style>

@@ -66,7 +66,6 @@ public class EditActivity extends BaseActivity {
         }
     }
 
-
     //返回编辑页并保存内容
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

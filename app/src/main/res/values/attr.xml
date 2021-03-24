@@ -3,6 +3,7 @@
     <attr name="lvBackground" format="color" />
     <attr name="tvBackground" format="color" />
     <attr name="menu_search" format="string"/>
+    <attr name="menu_autoSave" format="color"/>
     <attr name="menu_delete_all" format="string"/>
     <attr name="menu_delete" format="string"/>
     <attr name="titleColor" format="color"/>

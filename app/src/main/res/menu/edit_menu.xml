@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <item
+        android:title="日记将自动保存"
+        app:showAsAction="always"
+        />
+
     <item
         android:id="@+id/delete"
         android:icon="?attr/menu_delete"
         android:title="Delete"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        />
+
+
 
 
 </menu>
