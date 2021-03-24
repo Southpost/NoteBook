@@ -45,20 +45,17 @@ public class NoteAdapter extends BaseAdapter implements Filterable {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        mContext.setTheme(R.style.DayTheme);
+        mContext.setTheme(R.style.AppTheme);
         View v = View.inflate(mContext, R.layout.note_layout, null);
         TextView tv_content = (TextView)v.findViewById(R.id.tv_content);
         TextView tv_time = (TextView)v.findViewById(R.id.tv_time);
 
-        //Set text for TextView
+        //设置文本到TextView
         String allText = noteList.get(position).getContent();
-//        if (sharedPreferences.getBoolean("noteTitle" ,true))
-//            tv_content.setText(allText.split("\n")[0]);
-//        else tv_content.setText(allText);
         tv_content.setText(allText);
         tv_time.setText(noteList.get(position).getTime());
 
-        //Save note id to tag
+        //存储笔记到tag
         v.setTag(noteList.get(position).getId());
 
         return v;
@@ -74,14 +71,14 @@ public class NoteAdapter extends BaseAdapter implements Filterable {
 
 
     class MyFilter extends Filter {
-        //在performFiltering(CharSequence charSequence)这个方法中定义过滤规则
+        //在performFiltering这个方法中定义过滤规则
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
             FilterResults result = new FilterResults();
             List<Note> list;
-            if (TextUtils.isEmpty(charSequence)) {//当过滤的关键字为空的时候，我们则显示所有的数据
+            if (TextUtils.isEmpty(charSequence)) {  //当过滤的关键字为空的时候，则显示所有的数据
                 list = backList;
-            } else {//否则把符合条件的数据对象添加到集合中
+            } else {   //否则把符合条件的数据对象添加到集合中
                 list = new ArrayList<>();
                 for (Note note : backList) {
                     if (note.getContent().contains(charSequence)) {
