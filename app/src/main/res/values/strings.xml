@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">NoteBook</string>
     <string name="main_name">磊哥好帅</string>
-
+    <string name="hint">请输入日记内容</string>
 </resources>

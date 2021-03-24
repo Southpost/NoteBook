@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.widget.CompoundButton;
-import android.widget.Switch;
+import android.view.View;
+
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -25,7 +25,6 @@ public class UserSettingsActivity extends BaseActivity  {
         setSupportActionBar(myToolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     }
 
     public void initView() {
