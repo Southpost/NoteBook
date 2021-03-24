@@ -140,7 +140,7 @@ public class EditActivity extends BaseActivity {
             }
         }
     }
-
+        //时间戳
         public String dateToStr () {
             Date date = new Date();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
