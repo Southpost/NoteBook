@@ -139,12 +139,12 @@ public class EditActivity extends BaseActivity {
             }
         }
     }
-        //时间戳
-        public String dateToStr () {
-            Date date = new Date();
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            return simpleDateFormat.format(date);
-        }
+    //时间戳
+    public String dateToStr () {
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+        return simpleDateFormat.format(date);
+    }
 
 
 }

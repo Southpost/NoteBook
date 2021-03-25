@@ -181,7 +181,7 @@ public class MainActivity extends BaseActivity implements
     }
 
 
-    //接受返回的结果(包括：删除的)
+    //接受返回的结果(包括删除的)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
@@ -339,7 +339,7 @@ public class MainActivity extends BaseActivity implements
     //格式转换string -> milliseconds
     @RequiresApi(api = Build.VERSION_CODES.N)
     public long dateStrToSec(String date) throws ParseException, java.text.ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
         long secTime = format.parse(date).getTime();
         return secTime;
     }
@@ -349,7 +349,7 @@ public class MainActivity extends BaseActivity implements
         else if (l < 0) return -1;
         else return 0;
     }
-    //按时间排序笔记
+    //按时间排序日记
     public void sortNotes(List<Note> noteList, final int mode) {
         Collections.sort(noteList, new Comparator<Note>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
