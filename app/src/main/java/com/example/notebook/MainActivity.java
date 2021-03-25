@@ -37,7 +37,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends BaseActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends BaseActivity implements
+        AdapterView.OnItemClickListener,
+        AdapterView.OnItemLongClickListener {
 
     private NoteDatabase dbHelper;
 
@@ -83,7 +85,8 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
                 showPopUpView();
             }
         });
-        lv.setOnItemClickListener(this);
+        lv.setOnItemClickListener(this);   //点击操作
+        lv.setOnItemLongClickListener(this); //长按操作
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -290,5 +293,32 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
                 startActivityForResult(intent, 1);
                 break;
         }
+    }
+    //长按删除笔记
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        switch (parent.getId()) {
+            case R.id.lv:
+                final Note note = noteList.get(position);
+                new AlertDialog.Builder(MainActivity.this)
+                        .setMessage("你想要删除这个日记吗?")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                CRUD op = new CRUD(context);
+                                op.open();
+                                op.removeNote(note);
+                                op.close();
+                                refreshListView();
+                            }
+                        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create().show();
+                break;
+        }
+        return true;
     }
 }
