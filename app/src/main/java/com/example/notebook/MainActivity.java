@@ -1,6 +1,7 @@
 package com.example.notebook;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -10,10 +11,15 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.icu.text.SimpleDateFormat;
+import android.net.ParseException;
+import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -34,6 +40,8 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -44,7 +52,6 @@ public class MainActivity extends BaseActivity implements
     private NoteDatabase dbHelper;
 
     private Toolbar myToolbar;
-    private String TAG="tag";
     private FloatingActionButton btn;
     TextView textView;
     private ListView lv;
@@ -270,10 +277,15 @@ public class MainActivity extends BaseActivity implements
 
     //实时更新列表内容
     private void refreshListView(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         CRUD op = new CRUD(context);
         op.open();
         if (noteList.size() > 0) noteList.clear();
         noteList.addAll(op.getAllNotes());
+        //排序
+        if (sharedPreferences.getBoolean("reverseSort", false)) sortNotes(noteList, 2);
+        else sortNotes(noteList, 1);
+
         op.close();
         adapter.notifyDataSetChanged();
     }
@@ -301,7 +313,9 @@ public class MainActivity extends BaseActivity implements
             case R.id.lv:
                 final Note note = noteList.get(position);
                 new AlertDialog.Builder(MainActivity.this)
-                        .setMessage("你想要删除这个日记吗?")
+                        .setTitle("确定")
+                        .setMessage("确定要删除此项内容吗?")
+                        .setIcon(R.drawable.ic_baseline_keyboard_voice_24)
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -320,5 +334,39 @@ public class MainActivity extends BaseActivity implements
                 break;
         }
         return true;
+    }
+
+    //格式转换string -> milliseconds
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public long dateStrToSec(String date) throws ParseException, java.text.ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        long secTime = format.parse(date).getTime();
+        return secTime;
+    }
+    //转换当前的long值：1, 0, -1
+    public int ChangeLong(Long l) {
+        if (l > 0) return 1;
+        else if (l < 0) return -1;
+        else return 0;
+    }
+    //按时间排序笔记
+    public void sortNotes(List<Note> noteList, final int mode) {
+        Collections.sort(noteList, new Comparator<Note>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public int compare(Note o1, Note o2) {
+                try {
+                    if (mode == 1) {
+                        return ChangeLong(dateStrToSec(o2.getTime()) - dateStrToSec(o1.getTime()));
+                    }
+                    else if (mode == 2) {//reverseSort
+                        return ChangeLong(dateStrToSec(o1.getTime()) - dateStrToSec(o2.getTime()));
+                    }
+                } catch (ParseException | java.text.ParseException e) {
+                    e.printStackTrace();
+                }
+                return 1;
+            }
+        });
     }
 }
