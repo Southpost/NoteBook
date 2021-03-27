@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -87,9 +86,11 @@ public class EditActivity extends BaseActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    //完成删除功能
+
+    //完成删除功能、换肤功能
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        final String[] colors={"护眼色", "紫罗兰", "道奇蓝","碧绿色","热情粉"};
         switch (item.getItemId()){
             case R.id.delete:
                 new AlertDialog.Builder(EditActivity.this)
@@ -113,6 +114,36 @@ public class EditActivity extends BaseActivity {
                         }
                         }).create().show();
                 break;
+            case R.id.change:
+                new AlertDialog.Builder(EditActivity.this)
+                        .setTitle("选择一个背景色")
+                        .setIcon(R.drawable.tomato)
+                        .setItems(colors, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which){
+                                    case 0:
+                                        getWindow().setBackgroundDrawableResource(R.color.blackColor);
+                                        break;
+                                    case 1:
+                                        getWindow().setBackgroundDrawableResource(R.color.Violet);
+                                        break;
+                                    case 2:
+                                        getWindow().setBackgroundDrawableResource(R.color.DoderBlue);
+                                        break;
+                                    case 3:
+                                        getWindow().setBackgroundDrawableResource(R.color.Auqamarin);
+                                        break;
+                                    case 4:
+                                        getWindow().setBackgroundDrawableResource(R.color.HotPink);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        }).create().show();
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -145,6 +176,9 @@ public class EditActivity extends BaseActivity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
         return simpleDateFormat.format(date);
     }
+
+    //设置背景色
+
 
 
 }

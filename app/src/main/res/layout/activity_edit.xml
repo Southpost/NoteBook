@@ -7,7 +7,8 @@
     android:paddingTop="15dp"
     android:paddingBottom="15dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/change_skin">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/myToolbar"

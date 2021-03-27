@@ -23,6 +23,12 @@
     <color name="i">#E6CEAC</color>
     <color name="o">#ECAD9E</color>
     <color name="p">#F4606C</color>
+    <color name="blackColor">#C7EDCC</color>
+    <color name="Violet">#EE82EE</color>
+    <color name="DoderBlue">#1E90FF</color>
+    <color name="Auqamarin">#7FFFAA</color>
+    <color name="HotPink">#FF69B4</color>
+
 
 
     <color name="toolbar">#000000</color>
