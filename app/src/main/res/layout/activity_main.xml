@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main_layout"
     android:background="@drawable/background">
+    android:background="@drawable/background"
+    tools:context=".MainActivity"
+    tools:ignore="HardcodedText">
 
 
     <androidx.appcompat.widget.Toolbar
@@ -29,18 +34,77 @@
         android:layout_below="@+id/myToolbar">
     </ListView>
 
-    
-    
+    <!--fab-->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/add_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        android:backgroundTint="@color/colorAccent"
+        android:text="more actions"
+        app:icon="@drawable/ic_baseline_add_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!--fab for memo-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/add_memo_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="30dp"
-        android:layout_marginBottom="30dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/ic_baseline_create_24"
-         />
+        android:layout_marginBottom="100dp"
+        android:backgroundTint="@color/colorAccent"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toTopOf="@+id/add_fab"
+        app:layout_constraintEnd_toEndOf="@+id/add_fab"
+        app:srcCompat="@drawable/ic_notifications_black_24dp" />
+    <TextView
+        android:id="@+id/add_memo_action_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="115dp"
+        android:text="添加备忘录"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/add_memo_fab"
+        app:layout_constraintEnd_toStartOf="@+id/add_memo_fab"
+        app:layout_constraintTop_toTopOf="@+id/add_memo_fab" />
+
+    <!--fab for note-->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_note_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="170dp"
+        android:backgroundTint="@color/colorAccent"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toTopOf="@+id/add_memo_fab"
+        app:layout_constraintEnd_toEndOf="@+id/add_memo_fab"
+        app:layout_constraintStart_toStartOf="@+id/add_memo_fab"
+        app:srcCompat="@drawable/ic_create_24" />
+    <TextView
+        android:id="@+id/add_note_action_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="190dp"
+        android:text="添加日记"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/add_note_fab"
+        app:layout_constraintEnd_toStartOf="@+id/add_note_fab"
+        app:layout_constraintTop_toTopOf="@+id/add_note_fab" />
+
 </RelativeLayout>

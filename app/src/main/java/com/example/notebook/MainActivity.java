@@ -2,10 +2,8 @@ package com.example.notebook;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.LayoutInflaterCompat;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -21,7 +19,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,6 +34,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -52,7 +50,6 @@ public class MainActivity extends BaseActivity implements
     private NoteDatabase dbHelper;
 
     private Toolbar myToolbar;
-    private FloatingActionButton btn;
     TextView textView;
     private ListView lv;
     private Context context = this;
@@ -60,15 +57,17 @@ public class MainActivity extends BaseActivity implements
     private List<Note> noteList = new ArrayList<Note>();
     private TextView setting_text;
     private ImageView setting_image;
-
+    //fab
+    private FloatingActionButton mAddMemoFab, mAddNoteFab;
+    private ExtendedFloatingActionButton mAddFab;
+    TextView addMemoActionText, addNoteActionText;
+    private Boolean isAllFabsVisible;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        btn=findViewById(R.id.fab);
         textView=findViewById(R.id.et);
         lv=findViewById(R.id.lv);
         myToolbar=findViewById(R.id.myToolbar);
@@ -95,12 +94,67 @@ public class MainActivity extends BaseActivity implements
         lv.setOnItemClickListener(this);   //点击操作
         lv.setOnItemLongClickListener(this); //长按操作
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        //fab
+        mAddFab = findViewById(R.id.add_fab);
+        mAddMemoFab = findViewById(R.id.add_memo_fab);
+        mAddNoteFab = findViewById(R.id.add_note_fab);
+        addMemoActionText = findViewById(R.id.add_memo_action_text);
+        addNoteActionText = findViewById(R.id.add_note_action_text);
+
+        //设置fab
+        mAddMemoFab.setVisibility(View.GONE);
+        mAddNoteFab.setVisibility(View.GONE);
+        addMemoActionText.setVisibility(View.GONE);
+        addNoteActionText.setVisibility(View.GONE);
+
+        isAllFabsVisible = false;
+
+        //新增fab
+        mAddFab.shrink();
+
+        //主fab点击
+        mAddFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!isAllFabsVisible) {
+                    mAddMemoFab.show();
+                    mAddNoteFab.show();
+                    addMemoActionText.setVisibility(View.VISIBLE);
+                    addNoteActionText.setVisibility(View.VISIBLE);
+
+                    mAddFab.extend();
+
+                    isAllFabsVisible = true;
+                } else {
+                    mAddMemoFab.hide();
+                    mAddNoteFab.hide();
+                    addMemoActionText.setVisibility(View.GONE);
+                    addNoteActionText.setVisibility(View.GONE);
+
+                    mAddFab.shrink();
+
+                    isAllFabsVisible = false;
+                }
+            }
+        });
+
+        //添加日记
+        mAddNoteFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this,EditActivity.class);
-                intent.putExtra("mode",4);  //新建笔记
+                intent.putExtra("mode",4);  //新建日记
                 startActivityForResult(intent,0);
+            }
+        });
+
+        //添加备忘录
+        mAddMemoFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,MemoActivity.class);
+                intent.putExtra("mode",4);  //新建备忘录
+                startActivityForResult(intent,1);
             }
         });
     }
@@ -117,7 +171,7 @@ public class MainActivity extends BaseActivity implements
 
     //初始化弹出窗口
     public void initPopUpWindow(){
-        layoutInflater=(LayoutInflater)MainActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        layoutInflater=(LayoutInflater) MainActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         customView=(ViewGroup)layoutInflater.inflate(R.layout.setting_layout,null);
         coverView=(ViewGroup)layoutInflater.inflate(R.layout.setting_cover,null);   //美化弹窗
         main=findViewById(R.id.main_layout);
@@ -177,11 +231,10 @@ public class MainActivity extends BaseActivity implements
             }
         });
 
-
     }
 
 
-    //接受返回的结果(包括删除的)
+    //接受返回的结果(包括：删除的)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
@@ -339,7 +392,7 @@ public class MainActivity extends BaseActivity implements
     //格式转换string -> milliseconds
     @RequiresApi(api = Build.VERSION_CODES.N)
     public long dateStrToSec(String date) throws ParseException, java.text.ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         long secTime = format.parse(date).getTime();
         return secTime;
     }
@@ -349,7 +402,7 @@ public class MainActivity extends BaseActivity implements
         else if (l < 0) return -1;
         else return 0;
     }
-    //按时间排序日记
+    //按时间排序笔记
     public void sortNotes(List<Note> noteList, final int mode) {
         Collections.sort(noteList, new Comparator<Note>() {
             @RequiresApi(api = Build.VERSION_CODES.N)

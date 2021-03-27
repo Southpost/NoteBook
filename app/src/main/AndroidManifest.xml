@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".EditActivity"></activity>
+        <activity android:name=".MemoActivity"></activity>
         <activity android:name=".UserSettingsActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>

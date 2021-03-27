@@ -3,4 +3,8 @@
     <string name="hint">请输入日记内容</string>
     <string name="main_name">磊哥好丑</string>
     <string name="autoSave">日记将自动保存</string>
+    <string name="title_activity_main2">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_Memo">Memo</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
