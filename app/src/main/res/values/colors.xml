@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
@@ -12,7 +13,7 @@
     <color name="near_white">#f3f3f3</color>
     <color name="transparent">#00000000</color>
     <color name="cover">#66000000</color>
-
+    <color name="button">#ffc129</color>
     <color name="q">#19CAAD</color>
     <color name="w">#8CC7B5</color>
     <color name="e">#A0EEE1</color>
@@ -23,8 +24,14 @@
     <color name="i">#E6CEAC</color>
     <color name="o">#ECAD9E</color>
     <color name="p">#F4606C</color>
-
-
+    <color name="black_semi_transparent">#B2000000</color>
+    <color name="background">#e5e5e5</color>
+    <color name="half_black">#808080</color>
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="pink">#e91e63</color>
+    <color name="pink_pressed">#ec407a</color>
+    <color name="blue_semi_transparent">#805677fc</color>
+    <color name="blue_semi_transparent_pressed">#80738ffe</color>
     <color name="toolbar">#000000</color>
 
 </resources>
