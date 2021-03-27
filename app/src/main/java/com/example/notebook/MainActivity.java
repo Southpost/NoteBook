@@ -359,7 +359,7 @@ public class MainActivity extends BaseActivity implements
                 break;
         }
     }
-    //长按删除笔记
+    //长按删除日记
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         switch (parent.getId()) {

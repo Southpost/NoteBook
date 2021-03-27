@@ -3,6 +3,7 @@ package com.example.notebook;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +11,10 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -27,11 +31,17 @@ public class EditActivity extends BaseActivity {
     public Intent intent = new Intent(); //信息的发送
     private boolean tagChange = false;
     private Toolbar myToolbar;
+    private boolean isRead;
+    Toast toast1, toast2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
+
+        toast1=Toast.makeText(getApplicationContext(), "已进入阅读模式", Toast.LENGTH_SHORT);
+        toast2=Toast.makeText(getApplicationContext(), "已进入编辑模式", Toast.LENGTH_SHORT);
+        isRead = false;
 
         editText = findViewById(R.id.et);
         myToolbar=findViewById(R.id.myToolbar);
@@ -86,11 +96,11 @@ public class EditActivity extends BaseActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-
     //完成删除功能、换肤功能
+    @SuppressLint("ResourceAsColor")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        final String[] colors={"护眼色", "紫罗兰", "道奇蓝","碧绿色","热情粉"};
+        final String[] colors={"护眼色", "紫罗兰", "道奇蓝","碧绿色","热情粉","纯白色"};
         switch (item.getItemId()){
             case R.id.delete:
                 new AlertDialog.Builder(EditActivity.this)
@@ -114,6 +124,21 @@ public class EditActivity extends BaseActivity {
                         }
                         }).create().show();
                 break;
+            case R.id.read:
+                if(isRead){
+                    toast2.show();
+                    editText.setFocusableInTouchMode(true);
+                    editText.setFocusable(true);
+                    //btn.setBackgroundColor(getResources().getColor(R.color.black));
+                    isRead = false;
+                }else{
+                    toast1.show();
+                    editText.setFocusableInTouchMode(false);
+                    editText.setFocusable(false);
+                    //btn.setBackgroundColor(getResources().getColor(R.color.greyC));
+                    isRead = true;
+                }
+                break;
             case R.id.change:
                 new AlertDialog.Builder(EditActivity.this)
                         .setTitle("选择一个背景色")
@@ -136,6 +161,9 @@ public class EditActivity extends BaseActivity {
                                         break;
                                     case 4:
                                         getWindow().setBackgroundDrawableResource(R.color.HotPink);
+                                        break;
+                                    case 5:
+                                        getWindow().setBackgroundDrawableResource(R.color.white);
                                         break;
                                     default:
                                         break;

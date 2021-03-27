@@ -6,14 +6,17 @@
     >
     <item
         android:title="日记将自动保存"
-        app:showAsAction="always"
-        />
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/read"
+        android:icon="@drawable/ic_baseline_menu_book_24"
+        android:title="read"
+        app:showAsAction="always" />
     <item
         android:id="@+id/change"
         android:icon="@drawable/skin"
         android:title="change"
-        app:showAsAction="always"
-        />
+        app:showAsAction="always" />
     <item
         android:id="@+id/delete"
         android:icon="?attr/menu_delete"
