@@ -7,6 +7,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -131,22 +133,26 @@ public class EditActivity extends BaseActivity {
                         }).create().show();
                 break;
             case R.id.read:
+                Drawable drawable = item.getIcon();
                 if(isRead){
+                    drawable.setColorFilter(null);  //消除上一级的改变
+                    drawable.setColorFilter(getResources().getColor(R.color.greyC), PorterDuff.Mode.SRC_IN);
                     toast1.setText("您已进入编辑模式");
                     toast2.show();
                     editText.setFocusableInTouchMode(true);
                     editText.setFocusable(true);
-                    //btn.setBackgroundColor(getResources().getColor(R.color.black));
                     isRead = false;
                 }else{
+                    //图标颜色变换问题
+                    drawable.setColorFilter(getResources().getColor(R.color.greyC), PorterDuff.Mode.SRC_IN);
                     toast1.setText("您已进入阅读模式");
                     toast1.show();
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
                     editText.setFocusableInTouchMode(false);
                     editText.setFocusable(false);
-                    //btn.setBackgroundColor(getResources().getColor(R.color.greyC));
                     isRead = true;
+                    drawable.setColorFilter(null);  //消除颜色的改变
                 }
                 break;
             case R.id.change:

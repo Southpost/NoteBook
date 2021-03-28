@@ -11,7 +11,7 @@
         android:id="@+id/read"
         android:icon="@drawable/ic_baseline_menu_book_24"
         android:title="read"
-        app:showAsAction="always" />
+        app:showAsAction="always"/>
     <item
         android:id="@+id/music"
         android:icon="@drawable/ic_baseline_library_music_24"
