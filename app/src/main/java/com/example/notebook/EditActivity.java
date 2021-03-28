@@ -39,8 +39,8 @@ public class EditActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
-        toast1=Toast.makeText(getApplicationContext(), "已进入阅读模式", Toast.LENGTH_SHORT);
-        toast2=Toast.makeText(getApplicationContext(), "已进入编辑模式", Toast.LENGTH_SHORT);
+        toast1=Toast.makeText(getApplicationContext(), "您已进入阅读模式", Toast.LENGTH_SHORT);
+        toast2=Toast.makeText(getApplicationContext(), "您已进入编辑模式", Toast.LENGTH_SHORT);
         isRead = false;
 
         editText = findViewById(R.id.et);
@@ -126,12 +126,14 @@ public class EditActivity extends BaseActivity {
                 break;
             case R.id.read:
                 if(isRead){
+                    toast1.setText("您已进入编辑模式");
                     toast2.show();
                     editText.setFocusableInTouchMode(true);
                     editText.setFocusable(true);
                     //btn.setBackgroundColor(getResources().getColor(R.color.black));
                     isRead = false;
                 }else{
+                    toast1.setText("您已进入阅读模式");
                     toast1.show();
                     editText.setFocusableInTouchMode(false);
                     editText.setFocusable(false);
