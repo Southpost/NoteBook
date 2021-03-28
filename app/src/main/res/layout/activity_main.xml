@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main_layout"
-    android:background="@drawable/background">
     android:background="@drawable/background"
     tools:context=".MainActivity"
     tools:ignore="HardcodedText">
@@ -31,6 +30,7 @@
         android:layout_marginTop="8dp"
         android:divider="?attr/lvBackground"
         android:dividerHeight="8dp"
+        android:theme="@style/AppTheme"
         android:layout_below="@+id/myToolbar">
     </ListView>
 

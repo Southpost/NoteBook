@@ -62,11 +62,20 @@ public class MainActivity extends BaseActivity implements
     private ExtendedFloatingActionButton mAddFab;
     TextView addMemoActionText, addNoteActionText;
     private Boolean isAllFabsVisible;
+    private Intent intentMusic;  //背景音乐
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        // 启动服务播放背景音乐
+        intentMusic = new Intent(MainActivity.this, MyIntentService.class);
+        String action = MyIntentService.ACTION_MUSIC;
+        // 设置action
+        intentMusic.setAction(action);
+        startService(intentMusic);
 
         textView=findViewById(R.id.et);
         lv=findViewById(R.id.lv);
@@ -159,6 +168,16 @@ public class MainActivity extends BaseActivity implements
         });
     }
 
+    //背景音乐：退出即关闭
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (intentMusic != null){
+            // 对于intentService，这一步可能是多余的
+            stopService(intentMusic);
+        }
+    }
+
     //弹出设置栏
     private PopupWindow popupWindow;
     private PopupWindow popupCover;  //设置蒙版
@@ -185,7 +204,7 @@ public class MainActivity extends BaseActivity implements
         int width=metrics.widthPixels;
         int height=metrics.heightPixels;
         popupCover=new PopupWindow(coverView,width,height,false); //不对焦
-        popupWindow=new PopupWindow(customView,(int)(width*0.7),(int)(height*0.5),true);
+        popupWindow=new PopupWindow(customView,(int)(width*0.7),height,true);
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         //在主界面加载成功后，显示弹窗
         findViewById(R.id.main_layout).post(new Runnable() {

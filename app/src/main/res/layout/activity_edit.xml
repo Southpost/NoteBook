@@ -27,8 +27,6 @@
         android:hint="@string/hint"
         android:textColorHint="@color/greyC"
         android:gravity="top">
-
-
     </EditText>
 
 </LinearLayout>

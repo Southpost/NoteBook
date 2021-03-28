@@ -176,9 +176,4 @@ public class EditActivity extends BaseActivity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
         return simpleDateFormat.format(date);
     }
-
-    //设置背景色
-
-
-
 }
