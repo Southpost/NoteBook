@@ -62,20 +62,12 @@ public class MainActivity extends BaseActivity implements
     private ExtendedFloatingActionButton mAddFab;
     TextView addMemoActionText, addNoteActionText;
     private Boolean isAllFabsVisible;
-    private Intent intentMusic;  //背景音乐
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        // 启动服务播放背景音乐
-        intentMusic = new Intent(MainActivity.this, MyIntentService.class);
-        String action = MyIntentService.ACTION_MUSIC;
-        // 设置action
-        intentMusic.setAction(action);
-        startService(intentMusic);
 
         textView=findViewById(R.id.et);
         lv=findViewById(R.id.lv);
@@ -168,15 +160,6 @@ public class MainActivity extends BaseActivity implements
         });
     }
 
-    //背景音乐：退出即关闭
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (intentMusic != null){
-            // 对于intentService，这一步可能是多余的
-            stopService(intentMusic);
-        }
-    }
 
     //弹出设置栏
     private PopupWindow popupWindow;

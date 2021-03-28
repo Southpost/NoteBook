@@ -13,6 +13,11 @@
         android:title="read"
         app:showAsAction="always" />
     <item
+        android:id="@+id/music"
+        android:icon="@drawable/ic_baseline_library_music_24"
+        android:title="read"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/change"
         android:icon="@drawable/skin"
         android:title="change"
