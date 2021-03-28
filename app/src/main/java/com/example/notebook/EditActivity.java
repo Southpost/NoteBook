@@ -133,7 +133,7 @@ public class EditActivity extends BaseActivity {
                         }).create().show();
                 break;
             case R.id.read:
-                Drawable drawable = item.getIcon();
+                Drawable drawable = item.getIcon(); //图标颜色变换
                 if(isRead){
                     drawable.setColorFilter(null);  //消除上一级的改变
                     drawable.setColorFilter(getResources().getColor(R.color.greyC), PorterDuff.Mode.SRC_IN);
@@ -143,8 +143,8 @@ public class EditActivity extends BaseActivity {
                     editText.setFocusable(true);
                     isRead = false;
                 }else{
-                    //图标颜色变换问题
-                    drawable.setColorFilter(getResources().getColor(R.color.greyC), PorterDuff.Mode.SRC_IN);
+                    drawable.setColorFilter(null);
+                    drawable.setColorFilter(getResources().getColor(R.color.p), PorterDuff.Mode.SRC_IN);
                     toast1.setText("您已进入阅读模式");
                     toast1.show();
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -152,7 +152,6 @@ public class EditActivity extends BaseActivity {
                     editText.setFocusableInTouchMode(false);
                     editText.setFocusable(false);
                     isRead = true;
-                    drawable.setColorFilter(null);  //消除颜色的改变
                 }
                 break;
             case R.id.change:
