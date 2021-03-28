@@ -142,7 +142,7 @@ public class EditActivity extends BaseActivity {
                     toast1.setText("您已进入阅读模式");
                     toast1.show();
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(editText.getWindowToken(), 0) ;
+                    imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
                     editText.setFocusableInTouchMode(false);
                     editText.setFocusable(false);
                     //btn.setBackgroundColor(getResources().getColor(R.color.greyC));
