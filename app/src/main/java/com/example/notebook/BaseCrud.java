@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CRUD {
+public class BaseCrud {
     SQLiteOpenHelper dbHandler;
     SQLiteDatabase db;
 
@@ -20,7 +20,7 @@ public class CRUD {
             NoteDatabase.MODE
     };
 
-    public CRUD(Context context){
+    public BaseCrud(Context context){
         dbHandler = new NoteDatabase(context);
     }
 

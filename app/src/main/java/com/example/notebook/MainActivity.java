@@ -251,7 +251,7 @@ public class MainActivity extends BaseActivity implements
             int tag = data.getExtras().getInt("tag", 1);
             Note newNote = new Note(content, time, tag);
             newNote.setId(note_Id);
-            CRUD op = new CRUD(context);
+            BaseCrud op = new BaseCrud(context);
             op.open();
             op.updateNote(newNote);
             op.close();
@@ -260,14 +260,14 @@ public class MainActivity extends BaseActivity implements
             String time = data.getExtras().getString("time");
             int tag = data.getExtras().getInt("tag", 1);
             Note newNote = new Note(content, time, tag);
-            CRUD op = new CRUD(context);
+            BaseCrud op = new BaseCrud(context);
             op.open();
             op.addNote(newNote);
             op.close();
         }else if(returnMode==2){ //删除已经创建好的笔记内容
             Note delNote=new Note();
             delNote.setId(note_Id);
-            CRUD op = new CRUD(context);
+            BaseCrud op = new BaseCrud(context);
             op.open();
             op.removeNote(delNote);
             op.close();
@@ -333,7 +333,7 @@ public class MainActivity extends BaseActivity implements
     //实时更新列表内容
     private void refreshListView(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        CRUD op = new CRUD(context);
+        BaseCrud op = new BaseCrud(context);
         op.open();
         if (noteList.size() > 0) noteList.clear();
         noteList.addAll(op.getAllNotes());
@@ -374,7 +374,7 @@ public class MainActivity extends BaseActivity implements
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                CRUD op = new CRUD(context);
+                                BaseCrud op = new BaseCrud(context);
                                 op.open();
                                 op.removeNote(note);
                                 op.close();
