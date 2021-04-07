@@ -126,11 +126,11 @@ public class EditActivity extends BaseActivity {
                                 finish();
                             }
                         }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                        }
-                        }).create().show();
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create().show();
                 break;
             case R.id.read:
                 Drawable drawable = item.getIcon(); //图标颜色变换
