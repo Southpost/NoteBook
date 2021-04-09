@@ -14,8 +14,8 @@
             android:exported="false"></service>
 
         <activity android:name=".EditActivity" />
-        <activity android:name=".MemoActivity" />
         <activity android:name=".UserSettingsActivity" />
+        <activity android:name=".Alarm.EditAlarmActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

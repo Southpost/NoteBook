@@ -2,6 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/refresh"
+        android:icon="?attr/renewIcon"
+        app:showAsAction="always"
+        android:title="Renew"
+        />
+
+    <item
         android:id="@+id/action_search"
         android:icon="?attr/menu_search"
         app:showAsAction="always"

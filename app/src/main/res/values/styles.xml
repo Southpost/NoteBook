@@ -24,4 +24,19 @@
         <item name="colorControlActivated">@color/black</item>
         <item name="colorSwitchThumbNormal">@color/black</item>
     </style>
+    <style name="centerTV">
+        <item name="android:textSize">24dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="DayDialogTheme">
+        <item name="colorAccent">@color/black</item>
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
 </resources>

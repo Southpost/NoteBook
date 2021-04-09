@@ -10,30 +10,6 @@
     tools:context=".MainActivity"
     tools:ignore="HardcodedText">
 
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/myToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        app:titleTextColor="?attr/titleColor"
-        android:theme="?attr/toolbarTheme"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-
-    <ListView
-        android:id="@+id/lv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="8dp"
-        android:divider="?attr/lvBackground"
-        android:dividerHeight="8dp"
-        android:theme="@style/AppTheme"
-        android:layout_below="@+id/myToolbar">
-    </ListView>
-
     <!--fab-->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/add_fab"
@@ -106,5 +82,69 @@
         app:layout_constraintBottom_toBottomOf="@+id/add_note_fab"
         app:layout_constraintEnd_toStartOf="@+id/add_note_fab"
         app:layout_constraintTop_toTopOf="@+id/add_note_fab" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            app:titleTextColor="?attr/titleColor"
+            android:theme="?attr/toolbarTheme"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            <Switch
+                android:id="@+id/content_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:switchMinWidth="40dp"
+                />
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <LinearLayout
+            android:id="@+id/lv_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ListView
+                android:id="@+id/lv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="8dp"
+                android:divider="?attr/lvBackground"
+                android:dividerHeight="8dp"
+                android:theme="@style/AppTheme"
+                android:layout_below="@+id/myToolbar"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lv_plan_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ListView
+                android:id="@+id/lv_plan"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/my_toolbar"
+                android:divider="?attr/lvBackground"
+                android:dividerHeight="8dp"/>
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

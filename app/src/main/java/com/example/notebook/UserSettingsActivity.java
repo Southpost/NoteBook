@@ -27,6 +27,11 @@ public class UserSettingsActivity extends BaseActivity  {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    @Override
+    protected void needRefresh() {
+
+    }
+
     public void initView() {
 
     }

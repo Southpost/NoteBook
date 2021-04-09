@@ -80,6 +80,14 @@ public class EditActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void needRefresh() {
+        setTheme(R.style.AppTheme);
+        startActivity(new Intent(this, EditActivity.class));
+        overridePendingTransition(R.anim.night_switch, R.anim.night_switch_over);
+        finish();
+    }
+
     //返回编辑页并保存内容
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
