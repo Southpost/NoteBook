@@ -92,6 +92,8 @@ public class MainActivity extends BaseActivity implements
     private LinearLayout lv_plan_layout;
     private PlanAdapter planAdapter;
 
+    public static int curId = 5;
+
     String[] list_String = {"before one month", "before three months", "before six months", "before one year"};
 
     @Override
@@ -127,6 +129,9 @@ public class MainActivity extends BaseActivity implements
     private RelativeLayout main;
     private WindowManager wm;
     private DisplayMetrics metrics;
+
+    public int get(){ return curId; }
+    public void set(int cur){ curId = cur; }
 
     public void initView() {
         initPrefs();
