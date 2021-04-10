@@ -97,7 +97,11 @@
             app:titleTextColor="?attr/titleColor"
             android:theme="?attr/toolbarTheme"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-            <Switch
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="当前位置：" />
+            <ToggleButton
                 android:id="@+id/content_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -105,9 +109,11 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
                 android:switchMinWidth="40dp"
-                />
+                android:showText="true"
+                android:textOn="备忘录"
+                android:textOff="日记本"
+                android:background="@color/design_default_color_secondary"/>
         </androidx.appcompat.widget.Toolbar>
 
 

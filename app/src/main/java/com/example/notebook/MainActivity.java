@@ -41,6 +41,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.example.notebook.Alarm.AlarmReceiver;
 import com.example.notebook.Alarm.EditAlarmActivity;
@@ -82,7 +83,7 @@ public class MainActivity extends BaseActivity implements
     private Boolean isAllFabsVisible;
 
     private SharedPreferences sharedPreferences;
-    private Switch content_switch;
+    private ToggleButton content_switch;
 
     private AlarmManager alarmManager;
     private Achievement achievement;
@@ -188,7 +189,7 @@ public class MainActivity extends BaseActivity implements
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("content_switch", isChecked);
+                editor.putBoolean("content_switch", isChecked);  //Boolean类型的数据，content_switch为键名，isChecked为键值
                 editor.commit();
                 refreshLvVisibility();
             }
@@ -243,7 +244,7 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void refreshLvVisibility() {
-        //决定应该现实notes还是plans
+        //决定应该显示notes还是plans
         boolean temp = sharedPreferences.getBoolean("content_switch", false);
         if(temp){
             lv_layout.setVisibility(GONE);
