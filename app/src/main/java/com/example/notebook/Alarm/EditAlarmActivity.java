@@ -315,7 +315,7 @@ public class EditAlarmActivity extends BaseActivity implements View.OnClickListe
         Log.d(TAG, "canBeSet: " + cur.getTime().toString() + calendar.getTime().toString());
         if(cur.before(calendar)) return true;
         else {
-            Toast.makeText(this, "Invalid Time", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "请设置正确的时间", Toast.LENGTH_SHORT).show();
             return false;
         }
     }
