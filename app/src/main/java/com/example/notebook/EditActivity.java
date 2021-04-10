@@ -37,6 +37,14 @@ public class EditActivity extends BaseActivity {
     private boolean isRead;
     Toast toast1, toast2;
     private Intent intentMusic;
+    private int[] curColor = {
+            R.color.blackColor,
+            R.color.Violet,
+            R.color.DoderBlue,
+            R.color.Auqamarin,
+            R.color.HotPink,
+            R.color.white};
+    private MainActivity MA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +86,9 @@ public class EditActivity extends BaseActivity {
             editText.setText(old_content);
             editText.setSelection(old_content.length());
         }
+
+        //获取保存的背景色
+        getWindow().setBackgroundDrawableResource(curColor[MainActivity.curId]);
     }
 
     @Override
@@ -171,26 +182,27 @@ public class EditActivity extends BaseActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (which){
                                     case 0:
-                                        getWindow().setBackgroundDrawableResource(R.color.blackColor);
+                                        MainActivity.curId = 0;
                                         break;
                                     case 1:
-                                        getWindow().setBackgroundDrawableResource(R.color.Violet);
+                                        MainActivity.curId = 1;
                                         break;
                                     case 2:
-                                        getWindow().setBackgroundDrawableResource(R.color.DoderBlue);
+                                        MainActivity.curId = 2;
                                         break;
                                     case 3:
-                                        getWindow().setBackgroundDrawableResource(R.color.Auqamarin);
+                                        MainActivity.curId = 3;
                                         break;
                                     case 4:
-                                        getWindow().setBackgroundDrawableResource(R.color.HotPink);
+                                        MainActivity.curId = 4;
                                         break;
                                     case 5:
-                                        getWindow().setBackgroundDrawableResource(R.color.white);
+                                        MainActivity.curId = 5;
                                         break;
                                     default:
                                         break;
                                 }
+                                getWindow().setBackgroundDrawableResource(curColor[MainActivity.curId]);
                             }
                         }).create().show();
                 break;
