@@ -11,15 +11,15 @@
         android:theme="@style/AppTheme">
         <service
             android:name=".MyIntentService"
-            android:exported="false"></service>
-
+            android:exported="false"/>
         <activity android:name=".EditActivity" />
         <activity android:name=".UserSettingsActivity" />
         <activity android:name=".Alarm.EditAlarmActivity" />
+        <activity android:name=".Alarm.AlarmActivity" />
+        <receiver android:name=".Alarm.AlarmReceiver"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

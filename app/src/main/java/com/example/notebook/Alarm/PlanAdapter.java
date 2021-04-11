@@ -46,16 +46,16 @@ public class PlanAdapter extends BaseAdapter implements Filterable {
     public View getView(int position, View convertView, ViewGroup parent) {
         mContext.setTheme(R.style.AppTheme);
         View v = View.inflate(mContext, R.layout.plan_layout, null);
-        TextView tv_title = (TextView)v.findViewById(R.id.tv_title);
-        TextView tv_content = (TextView)v.findViewById(R.id.tv_content);
-        TextView tv_time = (TextView)v.findViewById(R.id.tv_time);
+        TextView tv_title = v.findViewById(R.id.tv_title);
+        TextView tv_content = v.findViewById(R.id.tv_content);
+        TextView tv_time = v.findViewById(R.id.tv_time);
 
-        //Set text for TextView
+        //设置内容->TextView
         tv_title.setText(planList.get(position).getTitle());
         tv_content.setText(planList.get(position).getContent());
         tv_time.setText(planList.get(position).getTime());
 
-        //Save plan id to tag
+        //保存内容->tag
         v.setTag(planList.get(position).getId());
 
         return v;
@@ -71,7 +71,7 @@ public class PlanAdapter extends BaseAdapter implements Filterable {
 
 
     class MyFilter extends Filter {
-        //我们在performFiltering(CharSequence charSequence)这个方法中定义过滤规则
+        //在performFiltering(CharSequence charSequence)这个方法中定义过滤规则
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
             FilterResults result = new FilterResults();

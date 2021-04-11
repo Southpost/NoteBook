@@ -3,7 +3,6 @@ package com.example.notebook;
 import android.app.IntentService;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.widget.Toast;
 
 
 /**
