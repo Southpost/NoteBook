@@ -114,7 +114,7 @@ public class EditActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    //添加删除按钮
+    //菜单
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.edit_menu,menu);  //渲染edit_menu

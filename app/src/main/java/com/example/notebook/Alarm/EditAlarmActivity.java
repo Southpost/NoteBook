@@ -48,6 +48,12 @@ public class EditAlarmActivity extends BaseActivity implements View.OnClickListe
     private boolean timeChange = false;
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.memo_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_alarm_layout);
@@ -166,13 +172,6 @@ public class EditAlarmActivity extends BaseActivity implements View.OnClickListe
             }
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.edit_menu, menu);
-        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

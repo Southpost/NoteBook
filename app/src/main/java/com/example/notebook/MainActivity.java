@@ -92,6 +92,7 @@ public class MainActivity extends BaseActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.greyMain));
         setContentView(R.layout.activity_main);
         //实例化闹钟管理器
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);

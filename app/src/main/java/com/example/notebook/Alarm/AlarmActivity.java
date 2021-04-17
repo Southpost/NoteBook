@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+
 import com.example.notebook.BaseActivity;
 import com.example.notebook.R;
 import java.util.Date;
@@ -38,5 +40,12 @@ public class AlarmActivity extends BaseActivity{
     @Override
     protected void needRefresh() {
 
+    }
+
+    //菜单
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.memo_menu,menu);  //渲染memo_menu
+        return super.onCreateOptionsMenu(menu);
     }
 }
