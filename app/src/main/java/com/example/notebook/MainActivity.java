@@ -653,23 +653,23 @@ public class MainActivity extends BaseActivity implements
         public void noteNumberAchievement(int num) {
             switch (num) {
                 case 1:
-                    if (noteLevel == 0) announcement("This is your first step!", 1, num);
+                    if (noteLevel == 0) announcement("🎉🎉🎉 第一步!", 1, num);
                     break;
                 case 10:
-                    if (noteLevel == 1) announcement("Keep going, and don't give up", 1, num);
+                    if (noteLevel == 1) announcement("🎉🎉🎉 Keep going, and don't give up", 1, num);
                     break;
                 case 100:
-                    if (noteLevel == 2) announcement("This has been a long way...", 1, num);
+                    if (noteLevel == 2) announcement("🎉🎉🎉 This has been a long way...", 1, num);
                     break;
                 case 1000:
-                    if (noteLevel == 3) announcement("Final achievement! Well Done!", 1, num);
+                    if (noteLevel == 3) announcement("🎉🎉🎉 Final achievement! Well Done!", 1, num);
                     break;
             }
         }
 
         //字数成就
         public void wordNumberAchievement(int num) {
-            if (num > 20000 && wordLevel == 4) announcement("Final Achievement! Congrats!", 2, 20000);
+            if (num > 20000 && wordLevel == 4) announcement("Final Achievement! 恭喜你!", 2, 20000);
             else if (num > 5000 && wordLevel == 3)
                 announcement("A long story...", 2, 5000);
             else if (num > 1000 && wordLevel == 2)
