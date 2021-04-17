@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Title"
-            android:textSize="28dp"
+            android:textSize="25dp"
             android:singleLine="true"
             android:textColor="?attr/tvMainColor"/>
         <TextView

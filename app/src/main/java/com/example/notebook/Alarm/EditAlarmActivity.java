@@ -16,11 +16,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import com.example.notebook.BaseActivity;
 import com.example.notebook.R;
-
 import java.util.Calendar;
+import java.util.Objects;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -34,8 +33,6 @@ public class EditAlarmActivity extends BaseActivity implements View.OnClickListe
     private EditText et;
     private Button set_date;
     private Button set_time;
-
-
 
     private TextView date;
     private TextView time;
@@ -54,11 +51,9 @@ public class EditAlarmActivity extends BaseActivity implements View.OnClickListe
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_alarm_layout);
-
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
-
+        Objects.requireNonNull(getSupportActionBar()).setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         init();
@@ -87,7 +82,7 @@ public class EditAlarmActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 if(!canBeSet()) {
-                    Toast.makeText(com.example.notebook.Alarm.EditAlarmActivity.this, "Invalid Time", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(com.example.notebook.Alarm.EditAlarmActivity.this, "无效的时间", Toast.LENGTH_SHORT).show();
                 }else if(et.getText().toString().length() + et_title.getText().toString().length() == 0 && openMode == 2){
                     Intent intent1 = new Intent();
                     intent1.putExtra("mode", -1);//nothing new happens.
@@ -96,23 +91,23 @@ public class EditAlarmActivity extends BaseActivity implements View.OnClickListe
                     overridePendingTransition(R.anim.in_lefttoright, R.anim.out_lefttoright);
                 }
                 else if (et_title.getText().toString().length() == 0) {
-                    Toast.makeText(com.example.notebook.Alarm.EditAlarmActivity.this, "Title cannot be empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(com.example.notebook.Alarm.EditAlarmActivity.this, "标题不能为空", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     isTimeChange();
                     Intent intent = new Intent();
                     if (openMode == 2) {
-                        intent.putExtra("mode", 10); // new one plan;
+                        intent.putExtra("mode", 10); // 新的备忘录;
                         intent.putExtra("title", et_title.getText().toString());
                         intent.putExtra("content", et.getText().toString());
                         intent.putExtra("time", date.getText().toString() + " " + time.getText().toString());
                         Log.d(TAG, date.getText().toString() + time.getText().toString());
                     } else {
                         if (et.getText().toString().equals(old_content) && et_title.getText().toString().equals(old_title) && !timeChange) {
-                            intent.putExtra("mode", -1); // edit nothing
+                            intent.putExtra("mode", -1); // 没有编辑
                         }
                         else {
-                            intent.putExtra("mode", 11); //edit the content
+                            intent.putExtra("mode", 11); //编辑内容
                             intent.putExtra("title", et_title.getText().toString());
                             intent.putExtra("content", et.getText().toString());
                             intent.putExtra("time", date.getText().toString() + " " + time.getText().toString());
@@ -148,17 +143,17 @@ public class EditAlarmActivity extends BaseActivity implements View.OnClickListe
                 isTimeChange();
                 Intent intent = new Intent();
                 if (openMode == 2) {
-                    intent.putExtra("mode", 10); // new one plan;
+                    intent.putExtra("mode", 10); // 一个新的备忘录
                     intent.putExtra("title", et_title.getText().toString());
                     intent.putExtra("content", et.getText().toString());
                     intent.putExtra("time", date.getText().toString() + " " + time.getText().toString());
                     Log.d(TAG, date.getText().toString() + time.getText().toString());
                 } else {
                     if (et.getText().toString().equals(old_content) && et_title.getText().toString().equals(old_title) && !timeChange) {
-                        intent.putExtra("mode", -1); // edit nothing
+                        intent.putExtra("mode", -1); //没有编辑
                     }
                     else {
-                        intent.putExtra("mode", 11); //edit the content
+                        intent.putExtra("mode", 11); //编辑内容
                         intent.putExtra("title", et_title.getText().toString());
                         intent.putExtra("content", et.getText().toString());
                         intent.putExtra("time", date.getText().toString() + " " + time.getText().toString());
@@ -186,8 +181,8 @@ public class EditAlarmActivity extends BaseActivity implements View.OnClickListe
         switch (item.getItemId()){
             case R.id.delete:
                 new AlertDialog.Builder(com.example.notebook.Alarm.EditAlarmActivity.this)
-                        .setMessage("Delete this plan ?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        .setMessage("确定删除这条备忘录?")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if(openMode == 2){
@@ -201,7 +196,7 @@ public class EditAlarmActivity extends BaseActivity implements View.OnClickListe
                                 }
                                 finish();
                             }
-                        }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -221,14 +216,12 @@ public class EditAlarmActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void init(){
-
         plan = new Plan();
         dateArray[0] = plan.getYear();
         dateArray[1] = plan.getMonth() + 1;
         dateArray[2] = plan.getDay();
         timeArray[0] = plan.getHour();
         timeArray[1] = plan.getMinute();
-
         et_title = findViewById(R.id.et_title);
         et = findViewById(R.id.et);
         set_date = findViewById(R.id.set_date);
@@ -236,7 +229,7 @@ public class EditAlarmActivity extends BaseActivity implements View.OnClickListe
         date = findViewById(R.id.date);
         time = findViewById(R.id.time);
 
-        //initialize two textviews
+        //初始化两个textView
         setDateTV(dateArray[0], dateArray[1], dateArray[2]);
         setTimeTV((timeArray[1]>54? timeArray[0]+1 : timeArray[0]), (timeArray[1]+5)%60);
         Log.d(TAG, "init: "+dateArray[1]);
@@ -260,7 +253,7 @@ public class EditAlarmActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void setDateTV(int y, int m, int d){
-        //update tv and dateArray
+        //更新tv和dateArray
         String temp = y + "-";
         if(m<10) temp += "0";
         temp += (m + "-");
@@ -286,18 +279,16 @@ public class EditAlarmActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.set_date: //choose day
+            case R.id.set_date: //选择日期
                 DatePickerDialog dialog = new DatePickerDialog(com.example.notebook.Alarm.EditAlarmActivity.this,
                         R.style.DayDialogTheme, dateSetListener,
                         dateArray[0], dateArray[1] - 1, dateArray[2]);
-                //dialog.getWindow().setBackgroundDrawable(new ColorDrawable((isNightMode()?Color.BLACK : Color.WHITE)));
                 dialog.show();
                 break;
-            case R.id.set_time://choose hour and minute
+            case R.id.set_time://选择时间
                 TimePickerDialog dialog1 = new TimePickerDialog(com.example.notebook.Alarm.EditAlarmActivity.this,
                         R.style.DayDialogTheme, timeSetListener,
                         timeArray[0], timeArray[1], true);
-                //dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog1.show();
                 break;
         }
@@ -319,7 +310,4 @@ public class EditAlarmActivity extends BaseActivity implements View.OnClickListe
             return false;
         }
     }
-
-
-
 }

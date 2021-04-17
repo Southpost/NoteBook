@@ -2,7 +2,6 @@ package com.example.notebook;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlarmManager;
@@ -14,21 +13,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.icu.text.SimpleDateFormat;
 import android.net.ParseException;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -39,8 +32,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.example.notebook.Alarm.AlarmReceiver;
 import com.example.notebook.Alarm.EditAlarmActivity;
@@ -56,6 +49,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import static android.view.View.GONE;
 
@@ -82,7 +76,7 @@ public class MainActivity extends BaseActivity implements
     private Boolean isAllFabsVisible;
 
     private SharedPreferences sharedPreferences;
-    private Switch content_switch;
+    private ToggleButton content_switch;
 
     private AlarmManager alarmManager;
     private Achievement achievement;
@@ -99,10 +93,9 @@ public class MainActivity extends BaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //实例化闹钟管理器
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         achievement = new Achievement(context);
-
         initView();
 
     }
@@ -114,23 +107,8 @@ public class MainActivity extends BaseActivity implements
         intent.putExtra("opMode", 10);
         startActivity(intent);
         overridePendingTransition(R.anim.night_switch, R.anim.night_switch_over);
-        if (popupWindow.isShowing()) popupWindow.dismiss();
         finish();
     }
-
-
-    //弹出设置栏
-    private PopupWindow popupWindow;
-    private PopupWindow popupCover;  //设置蒙版
-    private ViewGroup customView;
-    private ViewGroup coverView;
-    private LayoutInflater layoutInflater;  //用于渲染布局
-    private RelativeLayout main;
-    private WindowManager wm;
-    private DisplayMetrics metrics;
-
-    public int get(){ return curId; }
-    public void set(int cur){ curId = cur; }
 
     public void initView() {
         initPrefs();
@@ -150,20 +128,7 @@ public class MainActivity extends BaseActivity implements
 
         //自定义状态栏
         setSupportActionBar(myToolbar);
-        //getSupportActionBar().setHomeButtonEnabled(true);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //弹窗初始化
-        initPopUpWindow();
-        //设置三条杠
-        //myToolbar.setNavigationIcon(R.drawable.ic_menu_24);
-        //实现三条杠点击
-//        myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                showPopUpView();
-//            }
-//        });
         lv.setOnItemClickListener(this);   //点击操作
         lv_plan.setOnItemClickListener(this);
         lv.setOnItemLongClickListener(this); //长按操作
@@ -193,7 +158,7 @@ public class MainActivity extends BaseActivity implements
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putBoolean("content_switch", isChecked);
+                editor.putBoolean("content_switch", isChecked);  //Boolean类型的数据，content_switch为键名，isChecked为键值
                 editor.commit();
                 refreshLvVisibility();
             }
@@ -248,7 +213,7 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void refreshLvVisibility() {
-        //决定应该现实notes还是plans
+        //决定应该显示notes还是plans
         boolean temp = sharedPreferences.getBoolean("content_switch", false);
         if(temp){
             lv_layout.setVisibility(GONE);
@@ -258,74 +223,7 @@ public class MainActivity extends BaseActivity implements
             lv_layout.setVisibility(View.VISIBLE);
             lv_plan_layout.setVisibility(GONE);
         }
-//        if(temp) myToolbar.setTitle("All Plans");
-//        else myToolbar.setTitle("All Notes");
     }
-
-    //初始化弹出窗口
-    public void initPopUpWindow(){
-        layoutInflater=(LayoutInflater) MainActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        customView=(ViewGroup)layoutInflater.inflate(R.layout.setting_layout,null);
-        coverView=(ViewGroup)layoutInflater.inflate(R.layout.setting_cover,null);   //美化弹窗
-        main=findViewById(R.id.main_layout);
-        wm=getWindowManager();
-        metrics=new DisplayMetrics();
-        wm.getDefaultDisplay().getRealMetrics(metrics);
-    }
-
-    //展示弹窗
-    public void showPopUpView(){
-        int width=metrics.widthPixels;
-        int height=metrics.heightPixels;
-        popupCover=new PopupWindow(coverView,width,height,false); //不对焦
-        popupWindow=new PopupWindow(customView,(int)(width*0.7),height,true);
-        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-        //在主界面加载成功后，显示弹窗
-        findViewById(R.id.main_layout).post(new Runnable() {
-            @Override
-            public void run() {
-                popupCover.showAtLocation(main,Gravity.NO_GRAVITY,0,0);
-                popupWindow.showAtLocation(main, Gravity.NO_GRAVITY,0,0);
-
-                setting_text = customView.findViewById(R.id.setting_settings_text);
-                setting_image = customView.findViewById(R.id.setting_settings_image);
-
-
-                setting_text.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(MainActivity.this, UserSettingsActivity.class));
-
-                    }
-                });
-
-                setting_image.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(MainActivity.this, UserSettingsActivity.class));
-                    }
-                });
-
-                coverView.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        popupWindow.dismiss();
-                        return true;
-                    }
-                });
-
-                popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                    @Override
-                    public void onDismiss() {
-                        popupCover.dismiss();
-                    }
-                });
-
-            }
-        });
-
-    }
-
 
     //接受返回的结果(包括：删除的)
     @Override
@@ -336,7 +234,7 @@ public class MainActivity extends BaseActivity implements
         returnMode = data.getExtras().getInt("mode", -1);
         note_Id = data.getExtras().getLong("id", 0);
 
-        if (returnMode == 1) {             //更新当前笔记内容
+        if (returnMode == 1) {  //更新当前笔记内容
             String content = data.getExtras().getString("content");
             String time = data.getExtras().getString("time");
             int tag = data.getExtras().getInt("tag", 1);
@@ -365,7 +263,7 @@ public class MainActivity extends BaseActivity implements
             op.removeNote(delNote);
             op.close();
             achievement.deleteNote();
-        }else if (returnMode == 11){//edit plan
+        }else if (returnMode == 11){  //编辑备忘录
             String title = data.getExtras().getString("title", null);
             String content = data.getExtras().getString("content", null);
             String time = data.getExtras().getString("time", null);
@@ -376,14 +274,14 @@ public class MainActivity extends BaseActivity implements
             op.open();
             op.updatePlan(plan);
             op.close();
-        }else if (returnMode == 12){//delete existing plan
+        }else if (returnMode == 12){  //删除存在的备忘录
             Plan plan = new Plan();
             plan.setId(note_Id);
             com.example.notebook.Alarm.AlarmCrud op = new com.example.notebook.Alarm.AlarmCrud(context);
             op.open();
             op.removePlan(plan);
             op.close();
-        }else if (returnMode == 10){//create new plan
+        }else if (returnMode == 10){  //创建新的备忘录
             String title = data.getExtras().getString("title", null);
             String content = data.getExtras().getString("content", null);
             String time = data.getExtras().getString("time", null);
@@ -393,77 +291,54 @@ public class MainActivity extends BaseActivity implements
             op.addPlan(newPlan);
             Log.d(TAG, "onActivityResult: "+ time);
             op.close();
-        }else{
-
         }
         refreshListView();
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void initPrefs() {
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         SharedPreferences.Editor editor = sharedPreferences.edit();
         if (!sharedPreferences.contains("nightMode")) {
             editor.putBoolean("nightMode", false);
-            editor.commit();
+            editor.apply();
         }
         if (!sharedPreferences.contains("reverseSort")) {
             editor.putBoolean("reverseSort", false);
-            editor.commit();
+            editor.apply();
         }
         if (!sharedPreferences.contains("fabColor")) {
             editor.putInt("fabColor", -500041);
-            editor.commit();
+            editor.apply();
         }
         if (!sharedPreferences.contains("tagListString")) {
             String s = "no tag_life_study_work_play";
             editor.putString("tagListString", s);
-            editor.commit();
+            editor.apply();
         }
         if(!sharedPreferences.contains("content_switch")) {
             editor.putBoolean("content_switch", false);
-            editor.commit();
+            editor.apply();
         }
         if(!sharedPreferences.contains("fabPlanColor")){
             editor.putInt("fabPlanColor", -500041);
-            editor.commit();
+            editor.apply();
         }
         if(!sharedPreferences.contains("noteTitle")){
             editor.putBoolean("noteTitle", true);
-            editor.commit();
+            editor.apply();
         }
-
-
     }
 
     //菜单栏：删除的加入
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu,menu);  //渲染menu：删除
-        //搜索栏：搜索功能
-        MenuItem mSearch=menu.findItem(R.id.action_search);
-        SearchView mSearchView= (SearchView) mSearch.getActionView();
-        mSearchView.setQueryHint("搜索...");
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if(content_switch.isChecked()) planAdapter.getFilter().filter(newText);
-                else adapter.getFilter().filter(newText);
-                return false;
-            }
-        });
         final int mode = (content_switch.isChecked()? 2 : 1);
         final String itemName = (mode == 1 ? "notes" : "plans");
-        new Handler().post(new Runnable() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
                 final View view = findViewById(R.id.menu_clear);
-
                 if (view != null) {
                     view.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override
@@ -606,8 +481,7 @@ public class MainActivity extends BaseActivity implements
 
     //实时更新列表内容
     private void refreshListView(){
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-
+        SharedPreferences sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this);
         BaseCrud op = new BaseCrud(context);
         op.open();
         if (noteList.size() > 0) noteList.clear();
@@ -631,14 +505,16 @@ public class MainActivity extends BaseActivity implements
         else sortPlans(planList, 1);
         op1.close();
         planAdapter.notifyDataSetChanged();
-
         achievement.listen();
     }
 
     //设置很多提醒
     private void startAlarms(List<Plan> plans){
-        for(int i = 0; i < plans.size(); i++) startAlarm(plans.get(i));
+        for(int i = 0; i < plans.size(); i++) {
+            startAlarm(plans.get(i));
+        }
     }
+
     //设置提醒
     private void startAlarm(Plan p) {
         Calendar c = p.getPlanTime();
@@ -648,7 +524,6 @@ public class MainActivity extends BaseActivity implements
             intent.putExtra("content", p.getContent());
             intent.putExtra("id", (int)p.getId());
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this, (int) p.getId(), intent, 0);
-
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
         }
     }
@@ -662,7 +537,8 @@ public class MainActivity extends BaseActivity implements
 
     //取消很多提醒
     private void cancelAlarms(List<Plan> plans){
-        for(int i = 0; i < plans.size(); i++) cancelAlarm(plans.get(i));
+        for(int i = 0; i < plans.size(); i++)
+            cancelAlarm(plans.get(i));
     }
 
     @Override
@@ -675,18 +551,16 @@ public class MainActivity extends BaseActivity implements
         }
     }
 
-    //achievement system
+    //成就系统
     public class Achievement {
         private SharedPreferences sharedPreferences;
-
         private int noteNumber;
         private int wordNumber;
-
         private int noteLevel;
         private int wordLevel;
 
         public Achievement(Context context) {
-            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+            sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context);
             initPref();
             getPref();
         }
@@ -706,7 +580,6 @@ public class MainActivity extends BaseActivity implements
                 if (!sharedPreferences.contains("wordLevel")) {
                     editor.putInt("wordLevel", 0);
                     editor.commit();
-
                     addCurrent(noteList);
                     if (sharedPreferences.contains("maxRemainNumber")) {
                         editor.remove("maxRemainNumber");
@@ -723,10 +596,8 @@ public class MainActivity extends BaseActivity implements
                         if (!sharedPreferences.contains("wordNumber")) {
                             editor.putInt("wordNumber", 0);
                             editor.commit();
-
                         }
                     }
-
                 }
             }
         }
@@ -750,7 +621,7 @@ public class MainActivity extends BaseActivity implements
             else if (wordCount >= 1000) editor.putInt("noteLevel", 3);
             else if (wordCount >= 500) editor.putInt("noteLevel", 2);
             else if (wordCount >= 100) editor.putInt("noteLevel", 1);
-            editor.commit();
+            editor.apply();
         }
 
         //添加笔记
@@ -758,11 +629,9 @@ public class MainActivity extends BaseActivity implements
             SharedPreferences.Editor editor = sharedPreferences.edit();
             noteNumber++;
             editor.putInt("noteNumber", noteNumber);
-
             wordNumber += content.length();
             editor.putInt("wordNumber", wordNumber);
-
-            editor.commit();
+            editor.apply();
         }
 
         //删除笔记
@@ -776,7 +645,7 @@ public class MainActivity extends BaseActivity implements
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 wordNumber += (newContent.length() - oldContent.length());
                 editor.putInt("wordNumber", wordNumber);
-                editor.commit();
+                editor.apply();
             }
         }
 
@@ -796,7 +665,6 @@ public class MainActivity extends BaseActivity implements
                     if (noteLevel == 3) announcement("Final achievement! Well Done!", 1, num);
                     break;
             }
-
         }
 
         //字数成就
@@ -810,7 +678,6 @@ public class MainActivity extends BaseActivity implements
                 announcement("You have written an essay!", 2, 500);
             else if (num > 100 && wordLevel == 0)
                 announcement("Take it slow to create more possibilities!", 2, 100);
-
         }
 
         //对话框
@@ -842,7 +709,7 @@ public class MainActivity extends BaseActivity implements
         }
 
         public void setState(int mode) {
-            //set corresponding state to true in case repetition of annoucement
+            //如果重复宣布，则将相应状态设置为true
             SharedPreferences.Editor editor = sharedPreferences.edit();
             switch (mode) {
                 case 1:
@@ -863,20 +730,6 @@ public class MainActivity extends BaseActivity implements
             noteNumberAchievement(noteNumber);
             wordNumberAchievement(wordNumber);
         }
-
-        //重置成就
-        public void resetAll() {
-            //reset all prefs and state
-            noteNumber = 0;
-            wordNumber = 0;
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putInt("noteNumber", noteNumber);
-            editor.putInt("wordNumber", wordNumber);
-            editor.putInt("noteLevel", 0);
-            editor.putInt("wordLevel", 0);
-            editor.commit();
-        }
-
     }
 
     //主界面跳转编辑界面
@@ -905,6 +758,7 @@ public class MainActivity extends BaseActivity implements
                 break;
         }
     }
+
     //长按删除日记
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -913,7 +767,7 @@ public class MainActivity extends BaseActivity implements
                 final Note note = noteList.get(position);
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("确定")
-                        .setMessage("确定要删除此项内容吗?")
+                        .setMessage("确定要删除此条日记吗?")
                         .setIcon(R.drawable.ic_baseline_keyboard_voice_24)
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
@@ -934,11 +788,10 @@ public class MainActivity extends BaseActivity implements
             case R.id.lv_plan:
                 final Plan plan = planList.get(position);
                 new AlertDialog.Builder(MainActivity.this)
-                        .setMessage("Do you want to delete this plan ?")
+                        .setMessage("确定要删除此条备忘录吗?")
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
                                 com.example.notebook.Alarm.AlarmCrud op = new com.example.notebook.Alarm.AlarmCrud(context);
                                 op.open();
                                 op.removePlan(plan);
@@ -963,12 +816,14 @@ public class MainActivity extends BaseActivity implements
         long secTime = format.parse(date).getTime();
         return secTime;
     }
+
     //转换当前的long值：1, 0, -1
     public int ChangeLong(Long l) {
         if (l > 0) return 1;
         else if (l < 0) return -1;
         else return 0;
     }
+
     //按时间排序笔记
     public void sortNotes(List<Note> noteList, final int mode) {
         Collections.sort(noteList, new Comparator<Note>() {
@@ -990,7 +845,7 @@ public class MainActivity extends BaseActivity implements
         });
     }
 
-    //按模式时间排序计划
+    //按备忘录时间排序
     public void sortPlans(List<Plan> planList, final int mode){
         Collections.sort(planList, new Comparator<Plan>() {
             @Override
@@ -1007,9 +862,9 @@ public class MainActivity extends BaseActivity implements
             }
         });
     }
-    public long calStrToSec(String date) throws java.text.ParseException {//decode calender date to second
+    public long calStrToSec(String date) throws java.text.ParseException {
         java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
-        long secTime = format.parse(date).getTime();
+        long secTime = Objects.requireNonNull(format.parse(date)).getTime();
         return secTime;
     }
 }
