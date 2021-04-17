@@ -23,10 +23,16 @@
     <EditText
         android:id="@+id/et"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="600dp"
         android:hint="@string/hint"
         android:textColorHint="@color/greyC"
         android:gravity="top">
     </EditText>
+
+    <Button
+        android:id="@+id/write"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="手写板"/>
 
 </LinearLayout>
