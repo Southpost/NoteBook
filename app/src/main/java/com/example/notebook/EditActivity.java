@@ -19,7 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.notebook.Alarm.EditAlarmActivity;
+import com.example.notebook.Write.WritePadActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -79,7 +79,7 @@ public class EditActivity extends BaseActivity {
         write.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(EditActivity.this,WritePad.class);
+                Intent intent=new Intent(EditActivity.this, WritePadActivity.class);
                 startActivity(intent);
             }
         });

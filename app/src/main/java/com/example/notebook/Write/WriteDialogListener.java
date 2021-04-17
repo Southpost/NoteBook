@@ -1,4 +1,4 @@
-package com.example.notebook;
+package com.example.notebook.Write;
 
 /**
  * 监听手写板对话框

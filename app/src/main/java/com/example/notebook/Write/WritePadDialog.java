@@ -1,4 +1,4 @@
-package com.example.notebook;
+package com.example.notebook.Write;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -9,6 +9,8 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+import com.example.notebook.R;
+
 
 public class WritePadDialog extends Dialog {
     private Context mContext;
@@ -30,7 +32,7 @@ public class WritePadDialog extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE); //无标题
         setContentView(R.layout.write_pad);
 
-        mFrameLayout = (FrameLayout) findViewById(R.id.tablet_view);
+        mFrameLayout = findViewById(R.id.tablet_view);
 
         // 获取屏幕尺寸
         DisplayMetrics mDisplayMetrics = new DisplayMetrics();
@@ -41,13 +43,13 @@ public class WritePadDialog extends Dialog {
         mFrameLayout.addView(mPaintView);
         mPaintView.requestFocus();
 
-        mBtnOK = (Button) findViewById(R.id.write_pad_ok);
+        mBtnOK = findViewById(R.id.write_pad_ok);
         mBtnOK.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 if (mPaintView.getPath().isEmpty()) {
-                    Toast.makeText(mContext, "请写下你的大名", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "磊哥真帅", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 mWriteDialogListener.onPaintDone(mPaintView.getPaintBitmap());
@@ -55,21 +57,19 @@ public class WritePadDialog extends Dialog {
             }
         });
 
-        mBtnClear = (Button) findViewById(R.id.write_pad_clear);
+        mBtnClear = findViewById(R.id.write_pad_clear);
         mBtnClear.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 mPaintView.clear();
             }
         });
 
-        mBtnCancel = (Button) findViewById(R.id.write_pad_cancel);
+        mBtnCancel = findViewById(R.id.write_pad_cancel);
         mBtnCancel.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                cancel();
+                WritePadDialog.this.cancel();
             }
         });
     }

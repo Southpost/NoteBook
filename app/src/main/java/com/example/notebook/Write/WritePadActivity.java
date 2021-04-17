@@ -1,22 +1,18 @@
-package com.example.notebook;
+package com.example.notebook.Write;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-
+import com.example.notebook.R;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class WritePad extends BaseActivity {
-    private ImageView mIVSign;
-    private TextView mTVSign;
+public class WritePadActivity extends Activity {
     private Bitmap mSignBitmap;
 
-    public WritePad() {
+    public WritePadActivity() {
     }
 
     @Override
@@ -24,16 +20,14 @@ public class WritePad extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.write_pad);
 
-        WritePadDialog mWritePadDialog = new WritePadDialog(WritePad.this, new WriteDialogListener() {
+        WritePadDialog mWritePadDialog = new WritePadDialog(WritePadActivity.this, new WriteDialogListener() {
                     @Override
                     public void onPaintDone(Object object) {
                         mSignBitmap = (Bitmap) object;
                         createSignFile();
-//                        mIVSign.setImageBitmap(mSignBitmap);
-//                        mTVSign.setVisibility(View.GONE);
                     }
                 });
-                mWritePadDialog.show();
+        mWritePadDialog.show();
     }
 
     //创建签名文件
@@ -67,11 +61,5 @@ public class WritePad extends BaseActivity {
                 e.printStackTrace();
             }
         }
-    }
-
-
-    @Override
-    protected void needRefresh() {
-
     }
 }

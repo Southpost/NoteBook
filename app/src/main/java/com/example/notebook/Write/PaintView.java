@@ -1,4 +1,4 @@
-package com.example.notebook;
+package com.example.notebook.Write;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -34,12 +34,9 @@ public class PaintView extends View {
         mPaint.setStrokeWidth(5);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setColor(Color.BLACK);
-
         mPath = new Path();
-
         mBitmap = Bitmap.createBitmap(screenWidth, screenHeight, Config.ARGB_8888);
-        mCanvas = new Canvas(mBitmap);
-//		mCanvas.drawColor(Color.WHITE);
+        mCanvas = new Canvas(mBitmap);;
     }
 
     @Override
@@ -68,7 +65,6 @@ public class PaintView extends View {
                 mCanvas.drawPath(mPath, mPaint);
                 break;
         }
-
         invalidate();
         return true;
     }
@@ -76,7 +72,6 @@ public class PaintView extends View {
     public Bitmap getPaintBitmap() {
         return resizeImage(mBitmap, 320, 480);
     }
-
     public Path getPath() {
         return mPath;
     }
@@ -88,7 +83,6 @@ public class PaintView extends View {
 
         float scaleWidth = ((float) width) / originWidth;
         float scaleHeight = ((float) height) / originHeight;
-
         Matrix matrix = new Matrix();
         matrix.postScale(scaleWidth, scaleHeight);
         Bitmap resizedBitmap = Bitmap.createBitmap(bitmap, 0, 0, originWidth,
@@ -104,4 +98,5 @@ public class PaintView extends View {
             invalidate();
         }
     }
+
 }
