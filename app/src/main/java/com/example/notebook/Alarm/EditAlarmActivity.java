@@ -48,6 +48,12 @@ public class EditAlarmActivity extends BaseActivity implements View.OnClickListe
     private boolean timeChange = false;
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.memo_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_alarm_layout);
@@ -166,13 +172,6 @@ public class EditAlarmActivity extends BaseActivity implements View.OnClickListe
             }
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.edit_menu, menu);
-        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -306,7 +305,7 @@ public class EditAlarmActivity extends BaseActivity implements View.OnClickListe
         Log.d(TAG, "canBeSet: " + cur.getTime().toString() + calendar.getTime().toString());
         if(cur.before(calendar)) return true;
         else {
-            Toast.makeText(this, "Invalid Time", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "请设置正确的时间", Toast.LENGTH_SHORT).show();
             return false;
         }
     }

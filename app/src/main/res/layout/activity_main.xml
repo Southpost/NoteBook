@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main_layout"
-    android:background="@drawable/bg"
+    android:background="@color/greyMain"
     tools:context=".MainActivity"
     tools:ignore="HardcodedText">
 
@@ -20,12 +20,12 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
-        android:backgroundTint="@color/colorAccent"
-        android:text="more actions"
+        android:backgroundTint="@color/button"
+        android:text="MORE ACTIONS"
+        android:textColor="@color/white"
         app:icon="@drawable/ic_baseline_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
     <!--fab for memo-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_memo_fab"
@@ -35,7 +35,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="100dp"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="@color/button"
         app:fabSize="normal"
         app:layout_constraintBottom_toTopOf="@+id/add_fab"
         app:layout_constraintEnd_toEndOf="@+id/add_fab"
@@ -53,7 +53,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/add_memo_fab"
         app:layout_constraintEnd_toStartOf="@+id/add_memo_fab"
         app:layout_constraintTop_toTopOf="@+id/add_memo_fab" />
-
     <!--fab for note-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_note_fab"
@@ -63,7 +62,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="170dp"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="@color/button"
         app:fabSize="normal"
         app:layout_constraintBottom_toTopOf="@+id/add_memo_fab"
         app:layout_constraintEnd_toEndOf="@+id/add_memo_fab"
@@ -112,8 +111,10 @@
                 android:switchMinWidth="40dp"
                 android:showText="true"
                 android:textOn="备忘录"
-                android:textOff="日记本"
-                android:background="@color/design_default_color_secondary"/>
+                android:textOff="日记"
+                android:textStyle="bold"
+                android:background="@drawable/top_button_shap"
+                style="@style/roundbutton"/>
         </androidx.appcompat.widget.Toolbar>
 
 
@@ -122,17 +123,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <ListView
                 android:id="@+id/lv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_below="@+id/myToolbar"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginRight="10dp"
                 android:divider="?attr/lvBackground"
                 android:dividerHeight="8dp"
-                android:theme="@style/AppTheme"
-                android:layout_below="@+id/myToolbar"/>
+                android:theme="@style/AppTheme" />
         </LinearLayout>
 
         <LinearLayout
