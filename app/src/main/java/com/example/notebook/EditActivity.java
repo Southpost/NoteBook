@@ -15,8 +15,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.notebook.Alarm.EditAlarmActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,7 +27,7 @@ import java.util.Date;
 public class EditActivity extends BaseActivity {
 
     private EditText editText;
-
+    private Button write;
     private String old_content = "";
     private String old_time = "";
     private int old_Tag = 1;
@@ -44,7 +47,6 @@ public class EditActivity extends BaseActivity {
             R.color.Auqamarin,
             R.color.HotPink,
             R.color.white};
-    private MainActivity MA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class EditActivity extends BaseActivity {
 
         editText = findViewById(R.id.et);
         myToolbar=findViewById(R.id.myToolbar);
+        write=findViewById(R.id.write);
 
 
         //编辑界面的头部
@@ -71,6 +74,13 @@ public class EditActivity extends BaseActivity {
                 autoSetMessage();
                 setResult(RESULT_OK, intent);
                 finish();
+            }
+        });
+        write.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(EditActivity.this,WritePad.class);
+                startActivity(intent);
             }
         });
 

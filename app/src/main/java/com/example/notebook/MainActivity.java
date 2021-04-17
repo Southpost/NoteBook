@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.icu.text.SimpleDateFormat;
 import android.net.ParseException;
 import android.os.Build;
@@ -67,8 +68,6 @@ public class MainActivity extends BaseActivity implements
     private NoteAdapter adapter;
     private List<Note> noteList = new ArrayList<Note>();
     private List<Plan> planList = new ArrayList<Plan>();
-    private TextView setting_text;
-    private ImageView setting_image;
     //fab
     private FloatingActionButton mAddMemoFab, mAddNoteFab;
     private ExtendedFloatingActionButton mAddFab;
