@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main_layout"
-    android:background="@color/greyMain"
+    android:background="@drawable/bgd"
     tools:context=".MainActivity"
     tools:ignore="HardcodedText">
 
