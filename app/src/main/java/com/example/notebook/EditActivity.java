@@ -39,7 +39,6 @@ public class EditActivity extends BaseActivity {
     private boolean isRead;
     Toast toast1, toast2;
     private Intent intentMusic;
-    private Button ebtn1;
     private int[] curColor = {
             R.color.blackColor,
             R.color.Violet,
@@ -54,8 +53,8 @@ public class EditActivity extends BaseActivity {
         setContentView(R.layout.activity_edit);
 
         //跳转到手写页面
-        ebtn1=findViewById(R.id.edit_btn1);
-        ebtn1.setOnClickListener(new View.OnClickListener() {
+        Button handBtn = findViewById(R.id.edit_btn1);
+        handBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(EditActivity.this, HandwritingActivity.class);
