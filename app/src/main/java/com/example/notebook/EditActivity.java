@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ public class EditActivity extends BaseActivity {
     private boolean isRead;
     Toast toast1, toast2;
     private Intent intentMusic;
+    private Button ebtn1;
     private int[] curColor = {
             R.color.blackColor,
             R.color.Violet,
@@ -48,6 +50,16 @@ public class EditActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
+
+        //跳转到手写页面
+        ebtn1=findViewById(R.id.edit_btn1);
+        ebtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(EditActivity.this,HandwritingActivity.class);
+                startActivity(intent);
+            }
+        });
 
         toast1=Toast.makeText(getApplicationContext(), "您已进入阅读模式", Toast.LENGTH_SHORT);
         toast2=Toast.makeText(getApplicationContext(), "您已进入编辑模式", Toast.LENGTH_SHORT);
