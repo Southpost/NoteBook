@@ -14,7 +14,6 @@
             android:exported="false"/>
         <activity android:name=".EditActivity" />
         <activity android:name=".UserSettingsActivity" />
-        <activity android:name=".Write.WritePadActivity"/>
         <activity android:name=".Alarm.EditAlarmActivity" />
         <activity android:name=".Alarm.AlarmActivity" />
         <receiver android:name=".Alarm.AlarmReceiver"/>
