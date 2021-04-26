@@ -19,15 +19,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.notebook.Write.WritePadActivity;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class EditActivity extends BaseActivity {
 
     private EditText editText;
-    private Button write;
     private String old_content = "";
     private String old_time = "";
     private int old_Tag = 1;
@@ -40,6 +37,7 @@ public class EditActivity extends BaseActivity {
     private boolean isRead;
     Toast toast1, toast2;
     private Intent intentMusic;
+    private Button ebtn1;
     private int[] curColor = {
             R.color.blackColor,
             R.color.Violet,
@@ -53,13 +51,22 @@ public class EditActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
+        //跳转到手写页面
+        ebtn1=findViewById(R.id.edit_btn1);
+        ebtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(EditActivity.this,HandwritingActivity.class);
+                startActivity(intent);
+            }
+        });
+
         toast1=Toast.makeText(getApplicationContext(), "您已进入阅读模式", Toast.LENGTH_SHORT);
         toast2=Toast.makeText(getApplicationContext(), "您已进入编辑模式", Toast.LENGTH_SHORT);
         isRead = false;
 
         editText = findViewById(R.id.et);
         myToolbar=findViewById(R.id.myToolbar);
-        write=findViewById(R.id.write);
 
 
         //编辑界面的头部
@@ -74,13 +81,6 @@ public class EditActivity extends BaseActivity {
                 autoSetMessage();
                 setResult(RESULT_OK, intent);
                 finish();
-            }
-        });
-        write.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(EditActivity.this, WritePadActivity.class);
-                startActivity(intent);
             }
         });
 
