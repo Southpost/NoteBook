@@ -398,10 +398,10 @@ public class MainActivity extends BaseActivity implements
                                                         case 2: //plans
                                                             planDbHelper = new PlanDatabase(context);
                                                             SQLiteDatabase pdb = planDbHelper.getWritableDatabase();
-                                                            Cursor pcursor = pdb.rawQuery("select * from plans" ,null);
-                                                            while(pcursor.moveToNext()){
-                                                                if (pcursor.getString(pcursor.getColumnIndex(PlanDatabase.TIME)).compareTo(selectDateStr) < 0){
-                                                                    pdb.delete("plans", PlanDatabase.ID + "=?", new String[]{Long.toString(pcursor.getLong(pcursor.getColumnIndex(PlanDatabase.ID)))});
+                                                            Cursor cursor1 = pdb.rawQuery("select * from plans" ,null);
+                                                            while(cursor1.moveToNext()){
+                                                                if (cursor1.getString(cursor1.getColumnIndex(PlanDatabase.TIME)).compareTo(selectDateStr) < 0){
+                                                                    pdb.delete("plans", PlanDatabase.ID + "=?", new String[]{Long.toString(cursor1.getLong(cursor1.getColumnIndex(PlanDatabase.ID)))});
                                                                 }
                                                             }
                                                             pdb.execSQL("update sqlite_sequence set seq=0 where name='plans'");
@@ -439,7 +439,7 @@ public class MainActivity extends BaseActivity implements
                 if(!content_switch.isChecked()) {
                     new AlertDialog.Builder(MainActivity.this)
                             .setMessage("Delete All Notes ?")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dbHelper = new NoteDatabase(context);
@@ -448,7 +448,7 @@ public class MainActivity extends BaseActivity implements
                                     db.execSQL("update sqlite_sequence set seq=0 where name='notes'"); //reset id to 1
                                     refreshListView();
                                 }
-                            }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
@@ -458,16 +458,16 @@ public class MainActivity extends BaseActivity implements
                 else{
                     new AlertDialog.Builder(MainActivity.this)
                             .setMessage("Delete All Plans ?")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     planDbHelper = new PlanDatabase(context);
                                     SQLiteDatabase db = planDbHelper.getWritableDatabase();
-                                    db.delete("plans", null, null);//delete data in table NOTES
+                                    db.delete("plans", null, null);
                                     db.execSQL("update sqlite_sequence set seq=0 where name='plans'"); //reset id to 1
                                     refreshListView();
                                 }
-                            }).setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
