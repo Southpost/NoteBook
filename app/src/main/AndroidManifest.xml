@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/main1"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HandwritingActivity"></activity>
+        <activity android:name=".HandWriting.HandwritingActivity"></activity>
 
         <service
             android:name=".MyIntentService"

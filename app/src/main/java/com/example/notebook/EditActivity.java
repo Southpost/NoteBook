@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.notebook.HandWriting.HandwritingActivity;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -56,7 +58,7 @@ public class EditActivity extends BaseActivity {
         ebtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(EditActivity.this,HandwritingActivity.class);
+                Intent intent=new Intent(EditActivity.this, HandwritingActivity.class);
                 startActivity(intent);
             }
         });
