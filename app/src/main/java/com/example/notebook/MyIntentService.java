@@ -30,7 +30,7 @@ public class MyIntentService extends IntentService {
     public static final String EXTRA_PARAM2 = "com.example.notebook.extra.PARAM2";
 
     // 声明MediaPlayer对象
-    private MediaPlayer mediaPlayer;
+    private static MediaPlayer mediaPlayer;
 
     public MyIntentService() {
         super("MyIntentService");
@@ -71,52 +71,46 @@ public class MyIntentService extends IntentService {
      * 该服务执行的操作用来播放背景音乐
      */
     private void handleActionMusic1() {
-        if (mediaPlayer == null){
-            // 根据音乐资源文件创建MediaPlayer对象 设置循环播放属性 开始播放
-            mediaPlayer = MediaPlayer.create(this, R.raw.run);
-            mediaPlayer.setLooping(true);
-            mediaPlayer.start();
-        }
+        if(mediaPlayer != null) mediaPlayer.stop();
+        // 根据音乐资源文件创建MediaPlayer对象 设置循环播放属性 开始播放
+        mediaPlayer = MediaPlayer.create(this, R.raw.run);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
     }
     private void handleActionMusic2() {
-        if (mediaPlayer == null){
-            // 根据音乐资源文件创建MediaPlayer对象 设置循环播放属性 开始播放
-            mediaPlayer = MediaPlayer.create(this, R.raw.dream_wedding);
-            mediaPlayer.setLooping(true);
-            mediaPlayer.start();
-        }
+        if(mediaPlayer != null) mediaPlayer.stop();
+        // 根据音乐资源文件创建MediaPlayer对象 设置循环播放属性 开始播放
+        mediaPlayer = MediaPlayer.create(this, R.raw.dream_wedding);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
     }
     private void handleActionMusic3() {
-        if (mediaPlayer == null){
-            // 根据音乐资源文件创建MediaPlayer对象 设置循环播放属性 开始播放
-            mediaPlayer = MediaPlayer.create(this, R.raw.be_quiet);
-            mediaPlayer.setLooping(true);
-            mediaPlayer.start();
-        }
+        if(mediaPlayer != null) mediaPlayer.stop();
+        // 根据音乐资源文件创建MediaPlayer对象 设置循环播放属性 开始播放
+        mediaPlayer = MediaPlayer.create(this, R.raw.be_quiet);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
     }
     private void handleActionMusic4() {
-        if (mediaPlayer == null){
-            // 根据音乐资源文件创建MediaPlayer对象 设置循环播放属性 开始播放
-            mediaPlayer = MediaPlayer.create(this, R.raw.girly_heart);
-            mediaPlayer.setLooping(true);
-            mediaPlayer.start();
-        }
+        if(mediaPlayer != null) mediaPlayer.stop();
+        // 根据音乐资源文件创建MediaPlayer对象 设置循环播放属性 开始播放
+        mediaPlayer = MediaPlayer.create(this, R.raw.girly_heart);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
     }
     private void handleActionMusic5() {
-        if (mediaPlayer == null){
-            // 根据音乐资源文件创建MediaPlayer对象 设置循环播放属性 开始播放
-            mediaPlayer = MediaPlayer.create(this, R.raw.sword_fairy);
-            mediaPlayer.setLooping(true);
-            mediaPlayer.start();
-        }
+        if(mediaPlayer != null) mediaPlayer.stop();
+        // 根据音乐资源文件创建MediaPlayer对象 设置循环播放属性 开始播放
+        mediaPlayer = MediaPlayer.create(this, R.raw.sword_fairy);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
     }
     private void handleActionMusic6() {
-        if (mediaPlayer == null){
-            // 根据音乐资源文件创建MediaPlayer对象 设置循环播放属性 开始播放
-            mediaPlayer = MediaPlayer.create(this, R.raw.perfect_encounter);
-            mediaPlayer.setLooping(true);
-            mediaPlayer.start();
-        }
+        if(mediaPlayer != null) mediaPlayer.stop();
+        // 根据音乐资源文件创建MediaPlayer对象 设置循环播放属性 开始播放
+        mediaPlayer = MediaPlayer.create(this, R.raw.perfect_encounter);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
     }
 
 
