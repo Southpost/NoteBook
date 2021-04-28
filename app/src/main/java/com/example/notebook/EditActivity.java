@@ -62,6 +62,31 @@ public class EditActivity extends BaseActivity {
             }
         });
 
+        Button emojiBtn = findViewById(R.id.edit_btn2);
+        emojiBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String emojiArr[]=new String[78];
+                for(int i=0;i<78;i++)
+                {
+                    emojiArr[i]= new String(Character.toChars(128513+i));
+                }
+                AlertDialog.Builder builder =new AlertDialog.Builder(EditActivity.this);
+                //builder.setIcon(R.drawable.ic_launcher_foreground);
+                builder.setTitle("选择你喜欢的表情:");
+                builder.setItems(emojiArr, new DialogInterface.OnClickListener() {    //设置监听
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String string = editText.getText().toString();
+                        string=string + emojiArr[which];
+                        editText.setText(string);
+                    }
+                });
+                builder.create().show();                                  //创建、显示对话框
+            }
+
+        });
+
         toast1=Toast.makeText(getApplicationContext(), "您已进入阅读模式", Toast.LENGTH_SHORT);
         toast2=Toast.makeText(getApplicationContext(), "您已进入编辑模式", Toast.LENGTH_SHORT);
         isRead = false;
